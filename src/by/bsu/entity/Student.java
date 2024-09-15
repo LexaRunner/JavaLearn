@@ -1,9 +1,12 @@
 package by.bsu.entity;
 
-public class Student {
+import java.util.Vector;
+
+public class Student implements Cloneable {
     private int id;
     private String name;
     private int age;
+    private Vector<Byte> v = new Vector<>(); //список оценок - изменяемое поле
     public Student(int id, String name, int age) {
         this.id = id;
         this.name = name;
@@ -17,6 +20,9 @@ public class Student {
     }
     public int getAge() {
         return age;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -39,5 +45,16 @@ public class Student {
     @Override
     public String toString() {
         return getClass().getName() + "@name" + name + " id:" + id + " age:" + age;
+    }
+
+    public Student clone() {
+        Student copy = null;
+        try {
+            copy = (Student) super.clone();
+            copy.v = (Vector<Byte>) v.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return copy;
     }
 }
